@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Aura — AI Browser Companion",
+  "version": "0.1.0",
+  "description": "Replaces your new tab with an AI-powered personal dashboard: curated feed, mood-aware reshuffle, AI search, wellness nudges, and mini games.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage", "alarms", "tabs"],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*",
+    "https://newsapi.org/*",
+    "https://api.jikan.moe/*",
+    "https://hacker-news.firebaseio.com/*",
+    "https://dev.to/*"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/tracker.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "chrome_url_overrides": {
+    "newtab": "src/newtab/index.html"
+  }
+}
