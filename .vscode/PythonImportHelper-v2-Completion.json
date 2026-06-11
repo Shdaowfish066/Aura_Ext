@@ -1,0 +1,731 @@
+[
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "config",
+        "description": "config",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "GeminiError",
+        "importPath": "gemini",
+        "description": "gemini",
+        "isExtraImport": true,
+        "detail": "gemini",
+        "documentation": {}
+    },
+    {
+        "label": "call_gemini",
+        "importPath": "gemini",
+        "description": "gemini",
+        "isExtraImport": true,
+        "detail": "gemini",
+        "documentation": {}
+    },
+    {
+        "label": "GeminiError",
+        "importPath": "gemini",
+        "description": "gemini",
+        "isExtraImport": true,
+        "detail": "gemini",
+        "documentation": {}
+    },
+    {
+        "label": "call_gemini",
+        "importPath": "gemini",
+        "description": "gemini",
+        "isExtraImport": true,
+        "detail": "gemini",
+        "documentation": {}
+    },
+    {
+        "label": "classify_intent",
+        "importPath": "prompts",
+        "description": "prompts",
+        "isExtraImport": true,
+        "detail": "prompts",
+        "documentation": {}
+    },
+    {
+        "label": "search_prompt",
+        "importPath": "prompts",
+        "description": "prompts",
+        "isExtraImport": true,
+        "detail": "prompts",
+        "documentation": {}
+    },
+    {
+        "label": "feed_curation_prompt",
+        "importPath": "prompts",
+        "description": "prompts",
+        "isExtraImport": true,
+        "detail": "prompts",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_sources",
+        "importPath": "sources",
+        "description": "sources",
+        "isExtraImport": true,
+        "detail": "sources",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "db",
+        "description": "db",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "httpx",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "httpx",
+        "description": "httpx",
+        "detail": "httpx",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "claude",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "feed",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "sync",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "ClaudeRequest",
+        "kind": 6,
+        "importPath": "server.routers.claude",
+        "description": "server.routers.claude",
+        "peekOfCode": "class ClaudeRequest(BaseModel):\n    system: str\n    user: str\n    maxTokens: int = 1000\n    jsonMode: bool = False\nclass TextResponse(BaseModel):\n    text: str\ndef _raise_for(err: GeminiError) -> None:\n    if err.kind == \"no_key\":\n        raise HTTPException(status_code=503, detail=str(err))",
+        "detail": "server.routers.claude",
+        "documentation": {}
+    },
+    {
+        "label": "TextResponse",
+        "kind": 6,
+        "importPath": "server.routers.claude",
+        "description": "server.routers.claude",
+        "peekOfCode": "class TextResponse(BaseModel):\n    text: str\ndef _raise_for(err: GeminiError) -> None:\n    if err.kind == \"no_key\":\n        raise HTTPException(status_code=503, detail=str(err))\n    raise HTTPException(status_code=502, detail=str(err))\n@router.post(\"/claude\", response_model=TextResponse)\nasync def proxy_claude(req: ClaudeRequest) -> TextResponse:\n    \"\"\"Generic Gemini proxy — the extension's callClaude, server-side.\"\"\"\n    if not config.GEMINI_API_KEY:",
+        "detail": "server.routers.claude",
+        "documentation": {}
+    },
+    {
+        "label": "SearchRequest",
+        "kind": 6,
+        "importPath": "server.routers.claude",
+        "description": "server.routers.claude",
+        "peekOfCode": "class SearchRequest(BaseModel):\n    query: str\n    interests: list[str] = Field(default_factory=list)\n    name: str = \"\"\n@router.post(\"/search\", response_model=TextResponse)\nasync def search(req: SearchRequest) -> TextResponse:\n    \"\"\"AI search — mirrors useSearch.ts (JSON mode, 800 max tokens).\"\"\"\n    if not config.GEMINI_API_KEY:\n        raise HTTPException(status_code=503, detail=\"Server has no GEMINI_API_KEY configured.\")\n    profile = {\"name\": req.name, \"interests\": req.interests}",
+        "detail": "server.routers.claude",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "server.routers.claude",
+        "description": "server.routers.claude",
+        "peekOfCode": "router = APIRouter(prefix=\"/api\", tags=[\"claude\"])\nclass ClaudeRequest(BaseModel):\n    system: str\n    user: str\n    maxTokens: int = 1000\n    jsonMode: bool = False\nclass TextResponse(BaseModel):\n    text: str\ndef _raise_for(err: GeminiError) -> None:\n    if err.kind == \"no_key\":",
+        "detail": "server.routers.claude",
+        "documentation": {}
+    },
+    {
+        "label": "FeedRequest",
+        "kind": 6,
+        "importPath": "server.routers.feed",
+        "description": "server.routers.feed",
+        "peekOfCode": "class FeedRequest(BaseModel):\n    interests: list[str] = Field(default_factory=list)\n    mood: str | None = None\n    name: str = \"\"\n    browsingGoal: str = \"discover\"\n    force: bool = False\nclass FeedItem(BaseModel):\n    id: str\n    title: str\n    url: str",
+        "detail": "server.routers.feed",
+        "documentation": {}
+    },
+    {
+        "label": "FeedItem",
+        "kind": 6,
+        "importPath": "server.routers.feed",
+        "description": "server.routers.feed",
+        "peekOfCode": "class FeedItem(BaseModel):\n    id: str\n    title: str\n    url: str\n    source: str\n    topic: str\n    publishedAt: str\n    claudeCaption: str\n    moodFit: list[str]\n    imageUrl: str | None = None",
+        "detail": "server.routers.feed",
+        "documentation": {}
+    },
+    {
+        "label": "FeedResponse",
+        "kind": 6,
+        "importPath": "server.routers.feed",
+        "description": "server.routers.feed",
+        "peekOfCode": "class FeedResponse(BaseModel):\n    items: list[FeedItem]\n    aiUsed: bool\n    errorMessage: str | None\n    cached: bool\n# cache key (sorted interests tuple, mood) -> (timestamp, FeedResponse-without-cached)\n_cache: dict[tuple[tuple[str, ...], str | None], tuple[float, dict[str, Any]]] = {}\ndef _fallback_items(raw: list[dict[str, Any]]) -> list[dict[str, Any]]:\n    return [\n        {**a, \"claudeCaption\": f\"Trending on {a['source']}\", \"moodFit\": []}",
+        "detail": "server.routers.feed",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "server.routers.feed",
+        "description": "server.routers.feed",
+        "peekOfCode": "router = APIRouter(prefix=\"/api\", tags=[\"feed\"])\nCACHE_TTL_SECONDS = 30 * 60  # re-curate at most every 30 min\nMAX_TO_CURATE = 14           # cap Gemini input to stay within free tier\nclass FeedRequest(BaseModel):\n    interests: list[str] = Field(default_factory=list)\n    mood: str | None = None\n    name: str = \"\"\n    browsingGoal: str = \"discover\"\n    force: bool = False\nclass FeedItem(BaseModel):",
+        "detail": "server.routers.feed",
+        "documentation": {}
+    },
+    {
+        "label": "CACHE_TTL_SECONDS",
+        "kind": 5,
+        "importPath": "server.routers.feed",
+        "description": "server.routers.feed",
+        "peekOfCode": "CACHE_TTL_SECONDS = 30 * 60  # re-curate at most every 30 min\nMAX_TO_CURATE = 14           # cap Gemini input to stay within free tier\nclass FeedRequest(BaseModel):\n    interests: list[str] = Field(default_factory=list)\n    mood: str | None = None\n    name: str = \"\"\n    browsingGoal: str = \"discover\"\n    force: bool = False\nclass FeedItem(BaseModel):\n    id: str",
+        "detail": "server.routers.feed",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_TO_CURATE",
+        "kind": 5,
+        "importPath": "server.routers.feed",
+        "description": "server.routers.feed",
+        "peekOfCode": "MAX_TO_CURATE = 14           # cap Gemini input to stay within free tier\nclass FeedRequest(BaseModel):\n    interests: list[str] = Field(default_factory=list)\n    mood: str | None = None\n    name: str = \"\"\n    browsingGoal: str = \"discover\"\n    force: bool = False\nclass FeedItem(BaseModel):\n    id: str\n    title: str",
+        "detail": "server.routers.feed",
+        "documentation": {}
+    },
+    {
+        "label": "OkResponse",
+        "kind": 6,
+        "importPath": "server.routers.sync",
+        "description": "server.routers.sync",
+        "peekOfCode": "class OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored\n    return {\"exists\": True, \"profile\": profile, \"updatedAt\": updated_at}\n@router.put(\"/profile\", response_model=OkResponse)",
+        "detail": "server.routers.sync",
+        "documentation": {}
+    },
+    {
+        "label": "MoodHistoryEntry",
+        "kind": 6,
+        "importPath": "server.routers.sync",
+        "description": "server.routers.sync",
+        "peekOfCode": "class MoodHistoryEntry(BaseModel):\n    mood: str | None\n    timestamp: int\nclass MoodState(BaseModel):\n    current: str | None = None\n    history: list[MoodHistoryEntry] = Field(default_factory=list)\n@router.get(\"/mood\", response_model=MoodState)\nasync def get_mood() -> MoodState:\n    stored = db.get_value(MOOD_KEY)\n    if stored is None:",
+        "detail": "server.routers.sync",
+        "documentation": {}
+    },
+    {
+        "label": "MoodState",
+        "kind": 6,
+        "importPath": "server.routers.sync",
+        "description": "server.routers.sync",
+        "peekOfCode": "class MoodState(BaseModel):\n    current: str | None = None\n    history: list[MoodHistoryEntry] = Field(default_factory=list)\n@router.get(\"/mood\", response_model=MoodState)\nasync def get_mood() -> MoodState:\n    stored = db.get_value(MOOD_KEY)\n    if stored is None:\n        return MoodState()\n    value, _ = stored\n    return MoodState(**value)",
+        "detail": "server.routers.sync",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "server.routers.sync",
+        "description": "server.routers.sync",
+        "peekOfCode": "router = APIRouter(prefix=\"/api/sync\", tags=[\"sync\"])\nPROFILE_KEY = \"profile\"\nMOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}",
+        "detail": "server.routers.sync",
+        "documentation": {}
+    },
+    {
+        "label": "PROFILE_KEY",
+        "kind": 5,
+        "importPath": "server.routers.sync",
+        "description": "server.routers.sync",
+        "peekOfCode": "PROFILE_KEY = \"profile\"\nMOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored",
+        "detail": "server.routers.sync",
+        "documentation": {}
+    },
+    {
+        "label": "MOOD_KEY",
+        "kind": 5,
+        "importPath": "server.routers.sync",
+        "description": "server.routers.sync",
+        "peekOfCode": "MOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored\n    return {\"exists\": True, \"profile\": profile, \"updatedAt\": updated_at}",
+        "detail": "server.routers.sync",
+        "documentation": {}
+    },
+    {
+        "label": "init",
+        "kind": 2,
+        "importPath": "server.db",
+        "description": "server.db",
+        "peekOfCode": "def init() -> None:\n    conn = _connect()\n    try:\n        with conn:\n            conn.execute(\n                \"CREATE TABLE IF NOT EXISTS kv (\"\n                \"  key TEXT PRIMARY KEY,\"\n                \"  value TEXT,\"\n                \"  updated_at REAL\"\n                \")\"",
+        "detail": "server.db",
+        "documentation": {}
+    },
+    {
+        "label": "get_value",
+        "kind": 2,
+        "importPath": "server.db",
+        "description": "server.db",
+        "peekOfCode": "def get_value(key: str) -> tuple[Any, float] | None:\n    \"\"\"Return (parsed JSON value, updated_at) or None when the key is absent.\"\"\"\n    conn = _connect()\n    try:\n        row = conn.execute(\n            \"SELECT value, updated_at FROM kv WHERE key = ?\", (key,)\n        ).fetchone()\n    finally:\n        conn.close()\n    if row is None:",
+        "detail": "server.db",
+        "documentation": {}
+    },
+    {
+        "label": "set_value",
+        "kind": 2,
+        "importPath": "server.db",
+        "description": "server.db",
+        "peekOfCode": "def set_value(key: str, value: Any) -> None:\n    \"\"\"Upsert a JSON-serializable value.\"\"\"\n    conn = _connect()\n    try:\n        with conn:\n            conn.execute(\n                \"INSERT INTO kv (key, value, updated_at) VALUES (?, ?, ?) \"\n                \"ON CONFLICT(key) DO UPDATE SET value = excluded.value, \"\n                \"updated_at = excluded.updated_at\",\n                (key, json.dumps(value), time.time()),",
+        "detail": "server.db",
+        "documentation": {}
+    },
+    {
+        "label": "DB_PATH",
+        "kind": 5,
+        "importPath": "server.db",
+        "description": "server.db",
+        "peekOfCode": "DB_PATH = Path(__file__).parent / \"aura.db\"\ndef _connect() -> sqlite3.Connection:\n    conn = sqlite3.connect(DB_PATH)\n    conn.row_factory = sqlite3.Row\n    return conn\ndef init() -> None:\n    conn = _connect()\n    try:\n        with conn:\n            conn.execute(",
+        "detail": "server.db",
+        "documentation": {}
+    },
+    {
+        "label": "GeminiError",
+        "kind": 6,
+        "importPath": "server.gemini",
+        "description": "server.gemini",
+        "peekOfCode": "class GeminiError(Exception):\n    \"\"\"Raised on missing key, upstream HTTP failure, or empty response.\"\"\"\n    def __init__(self, message: str, kind: str = \"http\", status: int | None = None):\n        super().__init__(message)\n        self.kind = kind\n        self.status = status\ndef _endpoint() -> str:\n    return (\n        \"https://generativelanguage.googleapis.com/v1beta/models/\"\n        f\"{config.GEMINI_MODEL}:generateContent\"",
+        "detail": "server.gemini",
+        "documentation": {}
+    },
+    {
+        "label": "strip_fences",
+        "kind": 2,
+        "importPath": "server.gemini",
+        "description": "server.gemini",
+        "peekOfCode": "def strip_fences(text: str) -> str:\n    \"\"\"Strip ```json ... ``` fences the model sometimes adds (mirrors stripFences).\"\"\"\n    trimmed = text.strip()\n    match = _FENCE_RE.match(trimmed)\n    return (match.group(1) if match else trimmed).strip()\nasync def call_gemini(\n    system: str,\n    user: str,\n    max_tokens: int = 1000,\n    json_mode: bool = False,",
+        "detail": "server.gemini",
+        "documentation": {}
+    },
+    {
+        "label": "_FENCE_RE",
+        "kind": 5,
+        "importPath": "server.gemini",
+        "description": "server.gemini",
+        "peekOfCode": "_FENCE_RE = re.compile(r\"^```(?:json)?\\s*([\\s\\S]*?)\\s*```$\", re.IGNORECASE)\ndef strip_fences(text: str) -> str:\n    \"\"\"Strip ```json ... ``` fences the model sometimes adds (mirrors stripFences).\"\"\"\n    trimmed = text.strip()\n    match = _FENCE_RE.match(trimmed)\n    return (match.group(1) if match else trimmed).strip()\nasync def call_gemini(\n    system: str,\n    user: str,\n    max_tokens: int = 1000,",
+        "detail": "server.gemini",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "server.main",
+        "description": "server.main",
+        "peekOfCode": "app = FastAPI(title=\"Aura Backend\", version=config.VERSION)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origin_regex=r\"chrome-extension://.*\",\n    allow_origins=[\"http://localhost:5173\"],\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\napp.include_router(claude.router)\napp.include_router(feed.router)",
+        "detail": "server.main",
+        "documentation": {}
+    },
+    {
+        "label": "feed_curation_prompt",
+        "kind": 2,
+        "importPath": "server.prompts",
+        "description": "server.prompts",
+        "peekOfCode": "def feed_curation_prompt(\n    profile: dict[str, Any],\n    mood: str | None,\n    hour: int,\n    articles: list[dict[str, Any]],\n) -> tuple[str, str]:\n    \"\"\"Return (system, user) for feed curation.\"\"\"\n    mood_instruction = (\n        MOOD_INSTRUCTIONS.get(mood, \"\")\n        if mood",
+        "detail": "server.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "search_prompt",
+        "kind": 2,
+        "importPath": "server.prompts",
+        "description": "server.prompts",
+        "peekOfCode": "def search_prompt(\n    profile: dict[str, Any], query: str, intent: str\n) -> tuple[str, str]:\n    \"\"\"Return (system, user) for AI search.\"\"\"\n    user = f\"\"\"User profile: {json.dumps(profile)}\nQuery: {query}\nIntent: {intent}\nReturn JSON:\n{{ \"answer\": string, \"items\": [{{ \"title\": string, \"reason\": string, \"links\": string[] }}] }}\"\"\"\n    return SEARCH_SYSTEM, user",
+        "detail": "server.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "classify_intent",
+        "kind": 2,
+        "importPath": "server.prompts",
+        "description": "server.prompts",
+        "peekOfCode": "def classify_intent(query: str) -> str:\n    \"\"\"Lightweight intent guess — mirrors classifyIntent in prompts.ts.\"\"\"\n    import re\n    q = query.lower()\n    if re.search(r\"\\b(recommend|suggest|what should i|best|watch|read|play)\\b\", q):\n        return \"recommendation\"\n    if re.search(r\"\\b(how (do|to|can)|tutorial|guide|steps?)\\b\", q):\n        return \"how_to\"\n    if re.search(r\"\\b(news|latest|update|happening|today)\\b\", q):\n        return \"news\"",
+        "detail": "server.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "FEED_SYSTEM",
+        "kind": 5,
+        "importPath": "server.prompts",
+        "description": "server.prompts",
+        "peekOfCode": "FEED_SYSTEM = \"\"\"You are Aura's feed curator. You deeply understand this user's interests and mood.\nYour job is to pick the TOP 8 articles from the list and write a compelling personal caption for each.\nCaptions must reflect BOTH the user's interests AND their current mood — they should feel NOTICEABLY DIFFERENT for different moods.\nDo NOT just re-rank. Rewrite captions entirely based on the mood instruction you are given.\nBe specific. Reference the user's actual interests. Never be generic.\nReturn ONLY valid JSON. No markdown, no explanation.\"\"\"\ndef feed_curation_prompt(\n    profile: dict[str, Any],\n    mood: str | None,\n    hour: int,",
+        "detail": "server.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "SEARCH_SYSTEM",
+        "kind": 5,
+        "importPath": "server.prompts",
+        "description": "server.prompts",
+        "peekOfCode": "SEARCH_SYSTEM = \"\"\"You are Aura, a personal AI search engine. You know this user's taste.\nAnswer their query directly and helpfully. Be specific to their interests.\nFor recommendations, always give 3-5 options with a personal reason for each.\nIMPORTANT — links rules:\n- Every recommendation item MUST have a \"links\" array with real, working URLs.\n- For anime/manga: always include free sites first (animepahe.ru, gogoanime.gg, zoro.to, mangadex.org, tcbscans.com), then paid (crunchyroll.com, funimation.com).\n- For movies/series: include free options (tubi.tv, pluto.tv, youtube.com if available), then paid (netflix.com, primevideo.com, disneyplus.com, hulu.com, max.com).\n- For books/novels: include (archive.org, libgen.rs, readlightnovel.me) and paid (amazon.com, audible.com).\n- For music: include (youtube.com, soundcloud.com, spotify.com).\n- For games: include (store.steampowered.com, epicgames.com, itch.io).",
+        "detail": "server.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "TIMEOUT",
+        "kind": 5,
+        "importPath": "server.sources",
+        "description": "server.sources",
+        "peekOfCode": "TIMEOUT = 10.0\n# HN feed type per mood — completely different article pools\nMOOD_HN_FEED: dict[str, str] = {\n    \"hyped\":    \"topstories\",   # viral, exciting\n    \"good\":     \"newstories\",   # fresh, unexplored\n    \"tired\":    \"askstories\",   # discussions, easy reads\n    \"low\":      \"askstories\",   # conversations, relatable\n    \"stressed\": \"showstories\",  # people showing cool projects, distracting\n}\n# Dev.to tag per mood",
+        "detail": "server.sources",
+        "documentation": {}
+    },
+    {
+        "label": "RawArticle",
+        "kind": 5,
+        "importPath": "server.sources",
+        "description": "server.sources",
+        "peekOfCode": "RawArticle = dict[str, Any]\ndef _now_iso() -> str:\n    return datetime.now(timezone.utc).isoformat()\nasync def fetch_hackernews(client: httpx.AsyncClient, mood: str | None) -> list[RawArticle]:\n    try:\n        feed = MOOD_HN_FEED.get(mood, \"topstories\") if mood else \"topstories\"\n        ids = (\n            await client.get(f\"https://hacker-news.firebaseio.com/v0/{feed}.json\")\n        ).json()\n        async def fetch_item(item_id: int) -> Any:",
+        "detail": "server.sources",
+        "documentation": {}
+    }
+]

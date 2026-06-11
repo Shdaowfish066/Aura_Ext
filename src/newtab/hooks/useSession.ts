@@ -4,13 +4,22 @@ import {
   createDefaultSession,
   onChange,
   session as sessionStore,
+  sessionGet,
+  sessionSet,
 } from "../../storage";
 
-/** Reads session timing and ticks a live elapsed clock once per second.
- *  Elapsed time is derived from startTime so it stays live even if the
- *  background worker's per-minute increment hasn't fired yet. */
+/** Session timing, anchored to the user's PC clock.
+ *
+ *  The session-time clock counts from `session_started_at`, a timestamp in
+ *  chrome.storage.session stamped when this browser session began. Chrome
+ *  clears that storage when the browser closes or the extension is disabled,
+ *  so the clock genuinely resets — no more eternal timer.
+ *
+ *  `minutesElapsed` (for the daily goal bar) still uses the worker's
+ *  idle-gated `totalMinutesToday`, which only advances during real use. */
 export function useSession() {
   const [session, setSession] = useState<SessionData | undefined>(undefined);
+  const [startedAt, setStartedAt] = useState<number | undefined>(undefined);
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
@@ -28,6 +37,17 @@ export function useSession() {
       }
     });
 
+    // Browser-session start: read the worker's stamp, or (if this new tab
+    // beat the worker to it) stamp it ourselves from the PC clock.
+    sessionGet<number>("session_started_at").then(async (ts) => {
+      if (!alive) return;
+      if (ts === undefined) {
+        ts = Date.now();
+        await sessionSet("session_started_at", ts);
+      }
+      setStartedAt(ts);
+    });
+
     const off = onChange("session", (s) => alive && s && setSession(s));
     const tick = setInterval(() => alive && setNow(Date.now()), 1000);
     return () => {
@@ -37,13 +57,17 @@ export function useSession() {
     };
   }, []);
 
-  const elapsedMs = session ? Math.max(0, now - session.startTime) : 0;
-  const totalSeconds = Math.floor(elapsedMs / 1000);
+  const totalSeconds = startedAt
+    ? Math.max(0, Math.floor((now - startedAt) / 1000))
+    : 0;
 
   return {
     session,
     nudgeLevel: session?.nudgeLevel ?? 0,
-    minutesElapsed: Math.floor(totalSeconds / 60),
+    /** Idle-gated minutes of real use today (drives the daily goal bar). */
+    minutesElapsed: session?.totalMinutesToday ?? 0,
+    /** Wall time of the current date, for the analog clock. */
+    now,
     clock: {
       h: Math.floor(totalSeconds / 3600),
       m: Math.floor((totalSeconds % 3600) / 60),

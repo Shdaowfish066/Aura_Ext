@@ -10,7 +10,10 @@ import type {
   Mood,
   MoodHistoryEntry,
   Profile,
+  ResourceSettings,
+  ResourceStats,
   SessionData,
+  ThemeId,
   TriviaQuestion,
 } from "../types";
 
@@ -20,10 +23,14 @@ export interface StorageSchema {
   session: SessionData;
   feed_cache: FeedItem[];
   feed_last_updated: number;
+  feed_curated_mood: Mood; // mood the cached feed was curated for
   mood_current: Mood;
   mood_history: MoodHistoryEntry[];
   trivia_cache: TriviaQuestion[];
   wellness_history: string[];
+  theme: ThemeId;
+  resource_settings: ResourceSettings;
+  resource_stats: ResourceStats;
 }
 
 export type StorageKey = keyof StorageSchema;
@@ -95,6 +102,19 @@ export function onChange<K extends StorageKey>(
   return () => chrome.storage.onChanged.removeListener(handler);
 }
 
+// --- chrome.storage.session helpers ----------------------------------------
+// Used for ephemeral per-browser-session state (e.g. tab activity timestamps).
+// Extension pages and the service worker share this area by default.
+
+export async function sessionGet<T>(key: string): Promise<T | undefined> {
+  const result = await chrome.storage.session.get(key);
+  return result[key] as T | undefined;
+}
+
+export async function sessionSet(key: string, value: unknown): Promise<void> {
+  await chrome.storage.session.set({ [key]: value });
+}
+
 // --- Defaults -------------------------------------------------------------
 
 /** A blank profile used before onboarding completes. */
@@ -108,6 +128,16 @@ export function createDefaultProfile(): Profile {
     topTopics: [],
     setupComplete: false,
   };
+}
+
+/** Resource manager defaults — feature is shelved for rework, so auto-snooze
+ *  ships OFF until the new design lands. */
+export function createDefaultResourceSettings(): ResourceSettings {
+  return { enabled: false, idleMinutes: 10, whitelist: [] };
+}
+
+export function createDefaultResourceStats(): ResourceStats {
+  return { totalDiscarded: 0, estimatedMBSaved: 0, lastSweepAt: 0 };
 }
 
 /** A fresh session, seeded at the given start time. */
@@ -144,4 +174,18 @@ export const mood = {
   setCurrent: (value: Mood) => set("mood_current", value),
   getHistory: () => getWithDefault("mood_history", []),
   setHistory: (value: MoodHistoryEntry[]) => set("mood_history", value),
+};
+
+export const theme = {
+  get: () => getWithDefault("theme", "aura" as ThemeId),
+  set: (value: ThemeId) => set("theme", value),
+};
+
+export const resourceManager = {
+  getSettings: () =>
+    getWithDefault("resource_settings", createDefaultResourceSettings()),
+  setSettings: (value: ResourceSettings) => set("resource_settings", value),
+  getStats: () =>
+    getWithDefault("resource_stats", createDefaultResourceStats()),
+  setStats: (value: ResourceStats) => set("resource_stats", value),
 };

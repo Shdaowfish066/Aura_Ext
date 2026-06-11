@@ -6,3 +6,4 @@ dist-zip
 .env.local
 .DS_Store
 *.log
+.verify/shots

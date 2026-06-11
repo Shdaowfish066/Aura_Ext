@@ -3,7 +3,8 @@ import type { FeedItem, Mood, Profile } from "../../types";
 import type { CurationItem, RawArticle } from "../../claude/types";
 import { callClaudeJSON, hasApiKey, isOnline } from "../../claude/client";
 import { feedCurationPrompt } from "../../claude/prompts";
-import { feed as feedStore } from "../../storage";
+import { feed as feedStore, get, set } from "../../storage";
+import { BackendDownError, fetchCuratedFeed } from "../../api/client";
 
 const REFRESH_MS = 30 * 60 * 1000; // re-curate at most every 30 min (CLAUDE.md)
 const MAX_TO_CURATE = 14; // cap Gemini input to stay within free tier
@@ -145,13 +146,34 @@ function fallbackFeed(raw: RawArticle[]): FeedItem[] {
   }));
 }
 
+type CurationResult = {
+  items: FeedItem[];
+  /** True when Gemini actually ranked/captioned the items. */
+  aiUsed: boolean;
+  /** Human-readable reason when AI curation didn't run / failed. */
+  errorMessage: string | null;
+};
+
 async function curate(
   raw: RawArticle[],
   profile: Profile,
   mood: Mood
-): Promise<FeedItem[]> {
+): Promise<CurationResult> {
   const subset = raw.slice(0, MAX_TO_CURATE);
-  if (!hasApiKey() || !isOnline()) return fallbackFeed(subset);
+  if (!hasApiKey()) {
+    return {
+      items: fallbackFeed(subset),
+      aiUsed: false,
+      errorMessage: "AI curation is off — add a Gemini API key",
+    };
+  }
+  if (!isOnline()) {
+    return {
+      items: fallbackFeed(subset),
+      aiUsed: false,
+      errorMessage: "You're offline — showing cached picks",
+    };
+  }
   try {
     const hour = new Date().getHours();
     const { system, user } = feedCurationPrompt(profile, mood, hour, subset);
@@ -160,7 +182,7 @@ async function curate(
       cacheSystem: true,
     });
     const byId = new Map(curated.map((c) => [c.id, c]));
-    return subset
+    const items = subset
       .map((a) => {
         const c = byId.get(a.id);
         return {
@@ -172,8 +194,45 @@ async function curate(
       })
       .sort((x, y) => (x as any)._rank - (y as any)._rank)
       .map(({ _rank, ...item }: any) => item as FeedItem);
-  } catch {
-    return fallbackFeed(subset);
+    return { items, aiUsed: true, errorMessage: null };
+  } catch (err) {
+    console.warn("[Aura] Feed curation failed, using unranked fallback:", err);
+    return {
+      items: fallbackFeed(subset),
+      aiUsed: false,
+      errorMessage: "AI curation unavailable right now — showing unranked picks",
+    };
+  }
+}
+
+/**
+ * Backend-first curation: asks the local FastAPI server for a full curated
+ * feed (it fetches sources AND ranks them server-side). Returns null when the
+ * backend is unreachable or errored — callers then fall back to the local
+ * fetchSources + curate path unchanged.
+ */
+async function curatedFromBackend(
+  profile: Profile,
+  mood: Mood,
+  force: boolean
+): Promise<CurationResult | null> {
+  try {
+    const res = await fetchCuratedFeed({
+      interests: profile.interests,
+      mood,
+      name: profile.name,
+      browsingGoal: profile.browsingGoal,
+      force,
+    });
+    return {
+      items: res.items,
+      aiUsed: res.aiUsed,
+      errorMessage: res.errorMessage,
+    };
+  } catch (err) {
+    if (err instanceof BackendDownError) return null; // any kind → local path
+    console.warn("[Aura] Backend feed call failed unexpectedly:", err);
+    return null;
   }
 }
 
@@ -184,6 +243,8 @@ export function useFeed(profile: Profile | undefined, mood: Mood) {
   const [loading, setLoading] = useState(true);
   const [reshuffling, setReshuffling] = useState(false);
   const [stale, setStale] = useState(false);
+  const [feedError, setFeedError] = useState<string | null>(null);
+  const [aiActive, setAiActive] = useState(false);
   const rawRef = useRef<RawArticle[]>([]);
   const loadedRef = useRef(false);
 
@@ -203,12 +264,30 @@ export function useFeed(profile: Profile | undefined, mood: Mood) {
       if (!force && fresh && cache.length) {
         rawRef.current = cache.map(toRaw);
         const effectiveMood = latestMoodRef.current;
-        if (effectiveMood) {
-          const recurated = await curate(rawRef.current, profile, effectiveMood);
-          setItems(recurated);
-          void feedStore.setCache(recurated);
-        } else {
+        const cachedCuratedMood = (await get("feed_curated_mood")) ?? null;
+
+        if (cachedCuratedMood === effectiveMood) {
+          // Cache is fresh AND was curated for this exact mood — use it as-is.
+          // No Gemini call (this is what was burning the free-tier quota on
+          // every new tab open).
           setItems(cache);
+          // Cached items keep their AI captions; reflect that in the badge.
+          setAiActive(
+            cache.some(
+              (i) => i.claudeCaption && !i.claudeCaption.startsWith("Trending on")
+            )
+          );
+        } else {
+          // Mood actually changed since the cache was curated — one re-curation.
+          setFeedError(null);
+          const result =
+            (await curatedFromBackend(profile, effectiveMood, false)) ??
+            (await curate(rawRef.current, profile, effectiveMood));
+          setItems(result.items);
+          setFeedError(result.errorMessage);
+          setAiActive(result.aiUsed);
+          await feedStore.setCache(result.items);
+          await set("feed_curated_mood", effectiveMood);
         }
         setStale(false);
         setLoading(false);
@@ -216,18 +295,34 @@ export function useFeed(profile: Profile | undefined, mood: Mood) {
         return;
       }
 
-      const raw = await fetchSources(profile.interests, latestMoodRef.current);
-      if (!raw.length) {
-        setItems(cache);
-        setStale(cache.length > 0);
-        setLoading(false);
-        return;
+      const moodUsed = latestMoodRef.current;
+
+      // Backend-first: the server fetches sources AND curates in one call.
+      const backend = await curatedFromBackend(profile, moodUsed, force);
+      let result: CurationResult;
+      if (backend) {
+        rawRef.current = backend.items.map(toRaw);
+        setFeedError(null);
+        result = backend;
+      } else {
+        // Backend down → existing local path, unchanged.
+        const raw = await fetchSources(profile.interests, moodUsed);
+        if (!raw.length) {
+          setItems(cache);
+          setStale(cache.length > 0);
+          setLoading(false);
+          return;
+        }
+        rawRef.current = raw;
+        setFeedError(null);
+        result = await curate(raw, profile, moodUsed);
       }
-      rawRef.current = raw;
-      const curated = await curate(raw, profile, latestMoodRef.current);
-      setItems(curated);
+      setItems(result.items);
+      setFeedError(result.errorMessage);
+      setAiActive(result.aiUsed);
       setStale(false);
-      await feedStore.setCache(curated);
+      await feedStore.setCache(result.items);
+      await set("feed_curated_mood", moodUsed);
       await feedStore.setLastUpdated(Date.now());
       setLoading(false);
       loadedRef.current = true;
@@ -250,20 +345,46 @@ export function useFeed(profile: Profile | undefined, mood: Mood) {
     if (!loadedRef.current || !profile) return;
     let alive = true;
     setReshuffling(true);
-    fetchSources(profile.interests, mood).then((raw) => {
+    setFeedError(null);
+    curatedFromBackend(profile, mood, false).then(async (backend) => {
+      if (!alive) return;
+      if (backend) {
+        // Backend served the mood-specific feed in one call.
+        rawRef.current = backend.items.map(toRaw);
+        return backend;
+      }
+      // Backend down → existing local path, unchanged.
+      const raw = await fetchSources(profile.interests, mood);
       if (!alive) return;
       if (raw.length) rawRef.current = raw;
       return curate(rawRef.current, profile, mood);
-    }).then((next) => {
-      if (!alive || !next) return;
-      setItems(next);
+    }).then(async (result) => {
+      if (!alive || !result) return;
+      setItems(result.items);
+      setFeedError(result.errorMessage);
+      setAiActive(result.aiUsed);
       setReshuffling(false);
-      void feedStore.setCache(next);
-    }).catch(() => setReshuffling(false));
+      await feedStore.setCache(result.items);
+      await set("feed_curated_mood", mood);
+    }).catch((err) => {
+      console.warn("[Aura] Mood reshuffle failed:", err);
+      if (!alive) return;
+      setFeedError("AI curation unavailable right now — showing unranked picks");
+      setAiActive(false);
+      setReshuffling(false);
+    });
     return () => {
       alive = false;
     };
   }, [mood, profile]);
 
-  return { items, loading, reshuffling, stale, refresh: () => load(true) };
+  return {
+    items,
+    loading,
+    reshuffling,
+    stale,
+    feedError,
+    aiActive,
+    refresh: () => load(true),
+  };
 }

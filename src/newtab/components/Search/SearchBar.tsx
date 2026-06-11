@@ -15,7 +15,7 @@ export default function SearchBar({ onSearch, loading }: Props) {
 
   return (
     <form onSubmit={submit} className="relative">
-      <div className="group relative flex items-center rounded-2xl border border-hairline bg-glass backdrop-blur-xl transition-colors focus-within:border-primary/60">
+      <div className="glass-card group relative flex items-center transition-all duration-300 focus-within:border-primary/40 focus-within:shadow-glow">
         <span className="pl-4 text-faint">🔍</span>
         <input
           value={value}

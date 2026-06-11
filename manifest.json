@@ -8,13 +8,22 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["storage", "alarms", "tabs"],
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs",
+    "system.memory",
+    "system.cpu",
+    "idle"
+  ],
   "host_permissions": [
     "https://generativelanguage.googleapis.com/*",
     "https://newsapi.org/*",
     "https://api.jikan.moe/*",
     "https://hacker-news.firebaseio.com/*",
-    "https://dev.to/*"
+    "https://dev.to/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
   ],
   "background": {
     "service_worker": "src/background/service-worker.ts",

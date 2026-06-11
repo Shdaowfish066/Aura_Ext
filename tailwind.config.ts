@@ -11,6 +11,7 @@ export default {
         surface: "var(--bg-surface)",
         elevated: "var(--bg-elevated)",
         primary: "var(--accent-primary)",
+        secondary: "var(--accent-secondary)",
         warm: "var(--accent-warm)",
         ink: "var(--text-primary)",
         subtle: "var(--text-secondary)",
@@ -21,6 +22,12 @@ export default {
       fontFamily: {
         display: ['"Clash Display"', "system-ui", "sans-serif"],
         body: ['"Satoshi"', "system-ui", "sans-serif"],
+      },
+      backgroundImage: {
+        hero: "var(--gradient-hero)",
+      },
+      boxShadow: {
+        glow: "0 0 18px 2px var(--glow)",
       },
     },
   },

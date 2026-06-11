@@ -53,6 +53,45 @@ export type SessionData = {
   nudgeLevel: 0 | 1 | 2 | 3; // escalating nudge stages
 };
 
+/** Available visual themes. The registry lives in src/newtab/themes. */
+export type ThemeId =
+  | "aura"
+  | "spiderman"
+  | "batman"
+  | "anime"
+  | "naruto"
+  | "superman"
+  | "daylight";
+
+/** Resource manager (tab snoozer) settings. */
+export type ResourceSettings = {
+  enabled: boolean;
+  idleMinutes: number; // discard tabs idle longer than this
+  whitelist: string[]; // hostnames that are never discarded
+};
+
+/** Running totals shown in the Resource Manager panel. */
+export type ResourceStats = {
+  totalDiscarded: number;
+  estimatedMBSaved: number;
+  lastSweepAt: number;
+};
+
+/** UI shape for a browser tab tracked by the resource manager. */
+export type TrackedTab = {
+  id: number;
+  windowId: number;
+  title: string;
+  url: string;
+  favIconUrl?: string;
+  active: boolean;
+  pinned: boolean;
+  audible: boolean;
+  discarded: boolean;
+  lastActiveAt: number;
+  whitelisted: boolean;
+};
+
 /** A trivia question, as produced by the Claude trivia prompt. */
 export type TriviaQuestion = {
   question: string;

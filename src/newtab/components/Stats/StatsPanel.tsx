@@ -1,55 +1,70 @@
+import { m } from "framer-motion";
+import AnalogClock from "./AnalogClock";
+
 type Props = {
   clock: { h: number; m: number; s: number };
-  minutesElapsed: number;
   goalMinutes: number;
   topics: string[];
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-export default function StatsPanel({
-  clock,
-  minutesElapsed,
-  goalMinutes,
-  topics,
-}: Props) {
-  const pct =
-    goalMinutes > 0 ? Math.min(100, (minutesElapsed / goalMinutes) * 100) : 0;
-  const over = minutesElapsed > goalMinutes && goalMinutes > 0;
+export default function StatsPanel({ clock, goalMinutes, topics }: Props) {
+  // Relaxing countdown: the session budget (e.g. 3h) drains toward zero.
+  // Per browser session only — closing the browser resets it; nothing
+  // carries over from earlier sessions.
+  const elapsedSeconds = clock.h * 3600 + clock.m * 60 + clock.s;
+  const remaining = Math.max(0, goalMinutes * 60 - elapsedSeconds);
+  const rh = Math.floor(remaining / 3600);
+  const rm = Math.floor((remaining % 3600) / 60);
+  const rs = remaining % 60;
+  const pctLeft =
+    goalMinutes > 0 ? (remaining / (goalMinutes * 60)) * 100 : 100;
+  const done = remaining === 0;
 
   return (
     <div className="flex flex-col gap-4">
       <h2 className="font-display text-lg font-semibold text-ink">Today</h2>
 
-      {/* Session clock */}
-      <div className="rounded-2xl border border-hairline bg-glass p-5 backdrop-blur-xl">
-        <div className="text-xs uppercase tracking-wider text-faint">
-          Session time
-        </div>
-        <div className="mt-1 font-display text-3xl font-semibold tabular-nums text-ink">
-          {clock.h > 0 && `${clock.h}:`}
-          {pad(clock.m)}
-          <span className="text-subtle">:{pad(clock.s)}</span>
+      {/* Old-school clock + the session countdown */}
+      <div className="glass-card p-5">
+        <div className="flex items-center gap-4">
+          <AnalogClock size={104} />
+          <div className="min-w-0">
+            <div className="text-xs uppercase tracking-wider text-faint">
+              Session time left
+            </div>
+            <div className="mt-1 font-display text-2xl font-semibold tabular-nums text-ink">
+              {done ? (
+                <span className="text-warm">break time ✦</span>
+              ) : (
+                <>
+                  {rh > 0 && `${rh}:`}
+                  {pad(rm)}
+                  <span className="text-subtle">:{pad(rs)}</span>
+                </>
+              )}
+            </div>
+            <div className="mt-0.5 text-[11px] text-faint">
+              {done
+                ? "you've used this session's budget"
+                : "resets when you close the browser"}
+            </div>
+          </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between text-[11px] text-faint">
-          <span>Daily goal</span>
-          <span className={over ? "text-warm" : ""}>
-            {minutesElapsed}/{goalMinutes} min
-          </span>
-        </div>
-        <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-elevated">
-          <div
-            className={`h-full rounded-full transition-[width] duration-700 ${
-              over ? "bg-warm" : "bg-primary"
-            }`}
-            style={{ width: `${pct}%` }}
+        {/* Draining session bar */}
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-elevated">
+          <m.div
+            className={`h-full rounded-full ${done ? "bg-warm" : "bg-hero"}`}
+            animate={{ width: `${pctLeft}%` }}
+            transition={{ type: "spring", stiffness: 60, damping: 18 }}
           />
         </div>
       </div>
 
       {/* Top topics */}
-      <div className="rounded-2xl border border-hairline bg-glass p-5 backdrop-blur-xl">
+      <div className="glass-card p-5">
         <div className="text-xs uppercase tracking-wider text-faint">
           Your topics
         </div>

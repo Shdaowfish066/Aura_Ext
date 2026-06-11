@@ -4,18 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design system — exact values from CLAUDE.md. */
+/* Design system. :root carries the Aura (default) theme as the no-flash
+   fallback; applyTheme() in src/newtab/themes overrides these inline per
+   theme. */
 :root {
   --bg-base: #0d0f1a;
   --bg-surface: #151929;
   --bg-elevated: #1e2235;
   --accent-primary: #6366f1;
+  --accent-secondary: #a78bfa;
   --accent-warm: #f59e0b;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
   --text-muted: #475569;
   --border: rgba(255, 255, 255, 0.06);
   --glass: rgba(255, 255, 255, 0.04);
+  --gradient-hero: linear-gradient(120deg, #818cf8, #c4b5fd, #fbbf24, #818cf8);
+  --glow: rgba(99, 102, 241, 0.35);
+  --mood-tint: transparent;
 }
 
 html,
@@ -30,6 +36,8 @@ body {
   color: var(--text-primary);
   font-family: "Satoshi", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* Smooth whole-page crossfade when switching themes. */
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 /* Shared animations referenced by the design system. */
@@ -99,6 +107,241 @@ body {
   animation: aura-shimmer 1.4s linear infinite;
 }
 
+/* iOS-style "liquid glass" card: very translucent, heavy blur + saturation,
+   a bright inner top edge, and a soft drop shadow. Themed via the same CSS
+   variables, with a light-theme override below. */
+.glass-card {
+  position: relative;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* A dark underlay beneath the white sheen separates cards from the glowing
+     backdrop (cards were blending into the background at similar luminance). */
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.015) 40%,
+      rgba(255, 255, 255, 0.04)
+    ),
+    rgba(10, 12, 22, 0.42);
+  /* Saturation kept modest — boosting it relit the backdrop inside each
+     card's rectangle, which read as "square lights" wherever a glow passed
+     behind a card. */
+  -webkit-backdrop-filter: blur(36px) saturate(120%);
+  backdrop-filter: blur(36px) saturate(120%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    0 12px 36px rgba(0, 0, 0, 0.22);
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Bubble specular: a soft light catch on the upper-left, like glass curving
+   toward a light source. pointer-events-none keeps interactions intact. */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 70% at 18% -10%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 35%,
+      transparent 60%
+    );
+}
+
+/* Hover: brighter edge + deeper elevation only. (An outer --glow halo here
+   traced the card's rectangle — exactly the boxy hover light the design is
+   trying to avoid.) */
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 18px 48px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="daylight"] .glass-card {
+  border-color: rgba(15, 23, 42, 0.08);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.65),
+    rgba(255, 255, 255, 0.35) 38%,
+    rgba(255, 255, 255, 0.5)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 36px rgba(15, 23, 42, 0.08);
+}
+
+/* Primary surface tier — reserved for THE main interaction (Ask Aura).
+   Brightest glass on the page so the eye lands there first; everything else
+   uses .glass-card (secondary) or plain chips (tertiary). */
+.glass-strong {
+  position: relative;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.05) 45%,
+      rgba(255, 255, 255, 0.08)
+    ),
+    rgba(10, 12, 22, 0.5);
+  -webkit-backdrop-filter: blur(40px) saturate(135%);
+  backdrop-filter: blur(40px) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 16px 48px rgba(0, 0, 0, 0.35);
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.glass-strong:focus-within {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 20px 56px rgba(0, 0, 0, 0.42),
+    0 0 42px var(--glow);
+}
+
+[data-theme="daylight"] .glass-strong {
+  border-color: rgba(15, 23, 42, 0.12);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(255, 255, 255, 0.7) 45%,
+    rgba(255, 255, 255, 0.85)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 16px 48px rgba(15, 23, 42, 0.12);
+}
+
+/* Panning gradient — used for hero text and animated gradient borders.
+   Pair with background-size: 200% (the .gradient-hero-text helper does this). */
+@keyframes aura-gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-hero-text {
+  background-image: var(--gradient-hero);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: aura-gradient-pan 8s ease-in-out infinite;
+}
+
+.animate-gradient-pan {
+  background-size: 200% 200%;
+  animation: aura-gradient-pan 8s ease-in-out infinite;
+}
+
+/* Gentle vertical float for decorative elements. */
+@keyframes aura-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: aura-float 5s ease-in-out infinite;
+}
+
+/* Soft pulsing glow ring — uses the theme's --glow color. */
+@keyframes aura-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--glow);
+  }
+  50% {
+    box-shadow: 0 0 18px 4px var(--glow);
+  }
+}
+
+.animate-glow-pulse {
+  animation: aura-glow-pulse 2.4s ease-in-out infinite;
+}
+
+/* Falling sakura petals (Anime theme backdrop). Each .petal element sets its
+   own left/size/duration/delay inline. */
+@keyframes aura-petal-fall {
+  0% {
+    transform: translateY(-5vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(50vh) translateX(40px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(105vh) translateX(-20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.petal {
+  animation: aura-petal-fall linear infinite;
+}
+
+/* Gently rising particles ("motes") — the upward cousin of the sakura petal,
+   used to give every theme the same peaceful ambient drift. Each element sets
+   left/size/colors/duration/delay inline. */
+@keyframes aura-mote-rise {
+  0% {
+    transform: translateY(6vh) translateX(0) scale(0.9);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--mote-opacity, 0.45);
+  }
+  55% {
+    transform: translateY(-52vh) translateX(26px) scale(1);
+  }
+  88% {
+    opacity: var(--mote-opacity, 0.45);
+  }
+  100% {
+    transform: translateY(-108vh) translateX(-12px) scale(0.85);
+    opacity: 0;
+  }
+}
+
+.mote {
+  animation: aura-mote-rise linear infinite;
+}
+
+/* Full-screen mood ambiance overlay — crossfades when --mood-tint changes. */
+.mood-tint-overlay {
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    var(--mood-tint) 0%,
+    transparent 70%
+  );
+  transition: background 1.2s ease;
+}
+
 /* Slim, themed scrollbars. */
 *::-webkit-scrollbar {
   width: 8px;
@@ -114,7 +357,13 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .aurora-blob,
-  .shimmer {
+  .shimmer,
+  .gradient-hero-text,
+  .animate-gradient-pan,
+  .animate-float,
+  .animate-glow-pulse,
+  .petal,
+  .mote {
     animation: none;
   }
 }
