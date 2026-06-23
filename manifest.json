@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Aura — AI Browser Companion",
   "version": "0.1.0",
-  "description": "Replaces your new tab with an AI-powered personal dashboard: curated feed, mood-aware reshuffle, AI search, wellness nudges, and mini games.",
+  "description": "AI-powered new tab: mood-tuned feed, AI search, wellness nudges, and mini games.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

@@ -382,6 +382,15 @@
         "documentation": {}
     },
     {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
         "label": "sqlite3",
         "kind": 6,
         "isExtraImport": true,
@@ -438,15 +447,6 @@
         "description": "routers",
         "isExtraImport": true,
         "detail": "routers",
-        "documentation": {}
-    },
-    {
-        "label": "asyncio",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "asyncio",
-        "description": "asyncio",
-        "detail": "asyncio",
         "documentation": {}
     },
     {
@@ -544,7 +544,7 @@
         "kind": 6,
         "importPath": "server.routers.sync",
         "description": "server.routers.sync",
-        "peekOfCode": "class OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored\n    return {\"exists\": True, \"profile\": profile, \"updatedAt\": updated_at}\n@router.put(\"/profile\", response_model=OkResponse)",
+        "peekOfCode": "class OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = await db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored\n    return {\"exists\": True, \"profile\": profile, \"updatedAt\": updated_at}\n@router.put(\"/profile\", response_model=OkResponse)",
         "detail": "server.routers.sync",
         "documentation": {}
     },
@@ -553,7 +553,7 @@
         "kind": 6,
         "importPath": "server.routers.sync",
         "description": "server.routers.sync",
-        "peekOfCode": "class MoodHistoryEntry(BaseModel):\n    mood: str | None\n    timestamp: int\nclass MoodState(BaseModel):\n    current: str | None = None\n    history: list[MoodHistoryEntry] = Field(default_factory=list)\n@router.get(\"/mood\", response_model=MoodState)\nasync def get_mood() -> MoodState:\n    stored = db.get_value(MOOD_KEY)\n    if stored is None:",
+        "peekOfCode": "class MoodHistoryEntry(BaseModel):\n    mood: str | None\n    timestamp: int\nclass MoodState(BaseModel):\n    current: str | None = None\n    history: list[MoodHistoryEntry] = Field(default_factory=list)\n@router.get(\"/mood\", response_model=MoodState)\nasync def get_mood() -> MoodState:\n    stored = await db.get_value(MOOD_KEY)\n    if stored is None:",
         "detail": "server.routers.sync",
         "documentation": {}
     },
@@ -562,7 +562,7 @@
         "kind": 6,
         "importPath": "server.routers.sync",
         "description": "server.routers.sync",
-        "peekOfCode": "class MoodState(BaseModel):\n    current: str | None = None\n    history: list[MoodHistoryEntry] = Field(default_factory=list)\n@router.get(\"/mood\", response_model=MoodState)\nasync def get_mood() -> MoodState:\n    stored = db.get_value(MOOD_KEY)\n    if stored is None:\n        return MoodState()\n    value, _ = stored\n    return MoodState(**value)",
+        "peekOfCode": "class MoodState(BaseModel):\n    current: str | None = None\n    history: list[MoodHistoryEntry] = Field(default_factory=list)\n@router.get(\"/mood\", response_model=MoodState)\nasync def get_mood() -> MoodState:\n    stored = await db.get_value(MOOD_KEY)\n    if stored is None:\n        return MoodState()\n    value, _ = stored\n    return MoodState(**value)",
         "detail": "server.routers.sync",
         "documentation": {}
     },
@@ -571,7 +571,7 @@
         "kind": 5,
         "importPath": "server.routers.sync",
         "description": "server.routers.sync",
-        "peekOfCode": "router = APIRouter(prefix=\"/api/sync\", tags=[\"sync\"])\nPROFILE_KEY = \"profile\"\nMOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}",
+        "peekOfCode": "router = APIRouter(prefix=\"/api/sync\", tags=[\"sync\"])\nPROFILE_KEY = \"profile\"\nMOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = await db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}",
         "detail": "server.routers.sync",
         "documentation": {}
     },
@@ -580,7 +580,7 @@
         "kind": 5,
         "importPath": "server.routers.sync",
         "description": "server.routers.sync",
-        "peekOfCode": "PROFILE_KEY = \"profile\"\nMOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored",
+        "peekOfCode": "PROFILE_KEY = \"profile\"\nMOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = await db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored",
         "detail": "server.routers.sync",
         "documentation": {}
     },
@@ -589,7 +589,7 @@
         "kind": 5,
         "importPath": "server.routers.sync",
         "description": "server.routers.sync",
-        "peekOfCode": "MOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored\n    return {\"exists\": True, \"profile\": profile, \"updatedAt\": updated_at}",
+        "peekOfCode": "MOOD_KEY = \"mood\"\nclass OkResponse(BaseModel):\n    ok: bool = True\n@router.get(\"/profile\")\nasync def get_profile() -> dict[str, Any]:\n    stored = await db.get_value(PROFILE_KEY)\n    if stored is None:\n        return {\"exists\": False}\n    profile, updated_at = stored\n    return {\"exists\": True, \"profile\": profile, \"updatedAt\": updated_at}",
         "detail": "server.routers.sync",
         "documentation": {}
     },
@@ -599,24 +599,6 @@
         "importPath": "server.db",
         "description": "server.db",
         "peekOfCode": "def init() -> None:\n    conn = _connect()\n    try:\n        with conn:\n            conn.execute(\n                \"CREATE TABLE IF NOT EXISTS kv (\"\n                \"  key TEXT PRIMARY KEY,\"\n                \"  value TEXT,\"\n                \"  updated_at REAL\"\n                \")\"",
-        "detail": "server.db",
-        "documentation": {}
-    },
-    {
-        "label": "get_value",
-        "kind": 2,
-        "importPath": "server.db",
-        "description": "server.db",
-        "peekOfCode": "def get_value(key: str) -> tuple[Any, float] | None:\n    \"\"\"Return (parsed JSON value, updated_at) or None when the key is absent.\"\"\"\n    conn = _connect()\n    try:\n        row = conn.execute(\n            \"SELECT value, updated_at FROM kv WHERE key = ?\", (key,)\n        ).fetchone()\n    finally:\n        conn.close()\n    if row is None:",
-        "detail": "server.db",
-        "documentation": {}
-    },
-    {
-        "label": "set_value",
-        "kind": 2,
-        "importPath": "server.db",
-        "description": "server.db",
-        "peekOfCode": "def set_value(key: str, value: Any) -> None:\n    \"\"\"Upsert a JSON-serializable value.\"\"\"\n    conn = _connect()\n    try:\n        with conn:\n            conn.execute(\n                \"INSERT INTO kv (key, value, updated_at) VALUES (?, ?, ?) \"\n                \"ON CONFLICT(key) DO UPDATE SET value = excluded.value, \"\n                \"updated_at = excluded.updated_at\",\n                (key, json.dumps(value), time.time()),",
         "detail": "server.db",
         "documentation": {}
     },
@@ -706,7 +688,7 @@
         "kind": 5,
         "importPath": "server.prompts",
         "description": "server.prompts",
-        "peekOfCode": "SEARCH_SYSTEM = \"\"\"You are Aura, a personal AI search engine. You know this user's taste.\nAnswer their query directly and helpfully. Be specific to their interests.\nFor recommendations, always give 3-5 options with a personal reason for each.\nIMPORTANT — links rules:\n- Every recommendation item MUST have a \"links\" array with real, working URLs.\n- For anime/manga: always include free sites first (animepahe.ru, gogoanime.gg, zoro.to, mangadex.org, tcbscans.com), then paid (crunchyroll.com, funimation.com).\n- For movies/series: include free options (tubi.tv, pluto.tv, youtube.com if available), then paid (netflix.com, primevideo.com, disneyplus.com, hulu.com, max.com).\n- For books/novels: include (archive.org, libgen.rs, readlightnovel.me) and paid (amazon.com, audible.com).\n- For music: include (youtube.com, soundcloud.com, spotify.com).\n- For games: include (store.steampowered.com, epicgames.com, itch.io).",
+        "peekOfCode": "SEARCH_SYSTEM = \"\"\"You are Aura, a personal AI search engine. You know this user's taste.\nAnswer their query directly and helpfully. Be specific to their interests.\nFor recommendations, always give 3-5 options with a personal reason for each.\nIMPORTANT — links rules:\n- Every recommendation item MUST have a \"links\" array with real, working URLs.\n- Always prefer legitimate, widely available platforms (YouTube, Spotify, Crunchyroll, Steam, Amazon, etc.).\n- Always provide the full URL including https://.\n- Never leave links empty.\nReturn ONLY valid JSON. No markdown fences.\"\"\"\ndef search_prompt(",
         "detail": "server.prompts",
         "documentation": {}
     },

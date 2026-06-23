@@ -1,16 +1,9 @@
 import { useState } from "react";
 import type { Profile } from "../../types";
 import type { SearchResponse } from "../../claude/types";
-import { ClaudeError, callClaudeJSON } from "../../claude/client";
+import { ClaudeError, callClaudeJSON, stripFences } from "../../claude/client";
 import { classifyIntent, searchPrompt } from "../../claude/prompts";
 import { BackendDownError, searchBackend } from "../../api/client";
-
-/** Strip ```json … ``` fences the model sometimes adds despite instructions. */
-function stripFences(text: string): string {
-  const trimmed = text.trim();
-  const fenced = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
-  return (fenced ? fenced[1] : trimmed).trim();
-}
 
 /**
  * Backend-first search: the server runs the same prompt and returns raw text.

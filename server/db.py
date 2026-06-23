@@ -6,6 +6,7 @@ need. The DB file lives next to this module (server/aura.db).
 
 from __future__ import annotations
 
+import asyncio
 import json
 import sqlite3
 import time
@@ -36,8 +37,15 @@ def init() -> None:
         conn.close()
 
 
-def get_value(key: str) -> tuple[Any, float] | None:
-    """Return (parsed JSON value, updated_at) or None when the key is absent."""
+async def get_value(key: str) -> tuple[Any, float] | None:
+    """Return (parsed JSON value, updated_at) or None when the key is absent.
+
+    The blocking sqlite3 work runs in a thread so the event loop never stalls.
+    """
+    return await asyncio.to_thread(_get_value_sync, key)
+
+
+def _get_value_sync(key: str) -> tuple[Any, float] | None:
     conn = _connect()
     try:
         row = conn.execute(
@@ -50,8 +58,12 @@ def get_value(key: str) -> tuple[Any, float] | None:
     return json.loads(row["value"]), row["updated_at"]
 
 
-def set_value(key: str, value: Any) -> None:
-    """Upsert a JSON-serializable value."""
+async def set_value(key: str, value: Any) -> None:
+    """Upsert a JSON-serializable value (sqlite3 work runs in a thread)."""
+    await asyncio.to_thread(_set_value_sync, key, value)
+
+
+def _set_value_sync(key: str, value: Any) -> None:
     conn = _connect()
     try:
         with conn:

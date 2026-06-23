@@ -164,7 +164,7 @@ async function curate(
     return {
       items: fallbackFeed(subset),
       aiUsed: false,
-      errorMessage: "AI curation is off — add a Gemini API key",
+      errorMessage: "AI curation needs the Aura server — start it for ranked picks",
     };
   }
   if (!isOnline()) {
@@ -182,18 +182,19 @@ async function curate(
       cacheSystem: true,
     });
     const byId = new Map(curated.map((c) => [c.id, c]));
-    const items = subset
-      .map((a) => {
-        const c = byId.get(a.id);
-        return {
-          ...a,
-          claudeCaption: c?.claudeCaption ?? `Trending on ${a.source}`,
-          moodFit: c?.moodFit ?? [],
-          _rank: c?.rank ?? 999,
-        };
-      })
-      .sort((x, y) => (x as any)._rank - (y as any)._rank)
-      .map(({ _rank, ...item }: any) => item as FeedItem);
+    type RankedItem = FeedItem & { _rank: number };
+    const ranked: RankedItem[] = subset.map((a) => {
+      const c = byId.get(a.id);
+      return {
+        ...a,
+        claudeCaption: c?.claudeCaption ?? `Trending on ${a.source}`,
+        moodFit: c?.moodFit ?? [],
+        _rank: c?.rank ?? 999,
+      };
+    });
+    const items: FeedItem[] = ranked
+      .sort((x, y) => x._rank - y._rank)
+      .map(({ _rank: _ignored, ...item }) => item);
     return { items, aiUsed: true, errorMessage: null };
   } catch (err) {
     console.warn("[Aura] Feed curation failed, using unranked fallback:", err);

@@ -70,9 +70,8 @@ export default function SearchResult({ result, error, onClose }: Props) {
   );
 }
 
+// Friendly display names for well-known legitimate platforms only.
 const SITE_NAMES: Record<string, string> = {
-  "animepahe.ru": "AnimePahe", "gogoanime.gg": "GogoAnime", "zoro.to": "Zoro",
-  "aniwatch.to": "AniWatch", "mangadex.org": "MangaDex", "tcbscans.com": "TCB Scans",
   "crunchyroll.com": "Crunchyroll", "funimation.com": "Funimation",
   "netflix.com": "Netflix", "primevideo.com": "Prime Video",
   "disneyplus.com": "Disney+", "hulu.com": "Hulu", "max.com": "Max",
@@ -80,7 +79,7 @@ const SITE_NAMES: Record<string, string> = {
   "spotify.com": "Spotify", "soundcloud.com": "SoundCloud",
   "store.steampowered.com": "Steam", "epicgames.com": "Epic Games",
   "itch.io": "itch.io", "amazon.com": "Amazon", "audible.com": "Audible",
-  "archive.org": "Archive.org", "libgen.rs": "LibGen",
+  "archive.org": "Archive.org",
 };
 
 function siteName(url: string): string {

@@ -50,11 +50,7 @@ For recommendations, always give 3-5 options with a personal reason for each.
 
 IMPORTANT — links rules:
 - Every recommendation item MUST have a "links" array with real, working URLs.
-- For anime/manga: always include free sites first (animepahe.ru, gogoanime.gg, zoro.to, mangadex.org, tcbscans.com), then paid (crunchyroll.com, funimation.com).
-- For movies/series: include free options (tubi.tv, pluto.tv, youtube.com if available), then paid (netflix.com, primevideo.com, disneyplus.com, hulu.com, max.com).
-- For books/novels: include (archive.org, libgen.rs, readlightnovel.me) and paid (amazon.com, audible.com).
-- For music: include (youtube.com, soundcloud.com, spotify.com).
-- For games: include (store.steampowered.com, epicgames.com, itch.io).
+- Always prefer legitimate, widely available platforms (YouTube, Spotify, Crunchyroll, Steam, Amazon, etc.).
 - Always provide the full URL including https://.
 - Never leave links empty.
 Return ONLY valid JSON. No markdown fences."""

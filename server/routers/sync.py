@@ -21,7 +21,7 @@ class OkResponse(BaseModel):
 
 @router.get("/profile")
 async def get_profile() -> dict[str, Any]:
-    stored = db.get_value(PROFILE_KEY)
+    stored = await db.get_value(PROFILE_KEY)
     if stored is None:
         return {"exists": False}
     profile, updated_at = stored
@@ -30,7 +30,7 @@ async def get_profile() -> dict[str, Any]:
 
 @router.put("/profile", response_model=OkResponse)
 async def put_profile(profile: dict[str, Any]) -> OkResponse:
-    db.set_value(PROFILE_KEY, profile)
+    await db.set_value(PROFILE_KEY, profile)
     return OkResponse()
 
 
@@ -46,7 +46,7 @@ class MoodState(BaseModel):
 
 @router.get("/mood", response_model=MoodState)
 async def get_mood() -> MoodState:
-    stored = db.get_value(MOOD_KEY)
+    stored = await db.get_value(MOOD_KEY)
     if stored is None:
         return MoodState()
     value, _ = stored
@@ -55,5 +55,5 @@ async def get_mood() -> MoodState:
 
 @router.put("/mood", response_model=OkResponse)
 async def put_mood(state: MoodState) -> OkResponse:
-    db.set_value(MOOD_KEY, state.model_dump())
+    await db.set_value(MOOD_KEY, state.model_dump())
     return OkResponse()
